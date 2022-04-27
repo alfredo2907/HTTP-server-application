@@ -1,0 +1,6 @@
+replicaCount: 1
+
+image:                                                                                                                                                                          
+  repositoryUrl: image.registry.url
+  tag: latest
+  pullPolicy: Always

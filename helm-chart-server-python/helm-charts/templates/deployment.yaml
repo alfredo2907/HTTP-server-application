@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: server-python
+  name: server-python
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: server-python
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
+  template:
+    metadata:
+      labels:
+        app: server-python
+    spec:
+      containers:
+      - image: {{ .Values.image.repositoryUrl }}/server-python:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 8088
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 8099
+          initialDelaySeconds: 600
+          periodSeconds: 30
+        name: server-python
+        ports:
+          - containerPort: 8099
+      restartPolicy: Always
