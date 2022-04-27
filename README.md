@@ -1,5 +1,5 @@
 # HTTP-server-application
 
-Docker Build : docker build -t server-python .
+- Docker Build : <b> docker build -t server-python . </b>
 
-Docker Run : docker run -d -p 8088:8080 server-python 
+- Docker Run : <b> docker run -d -p 8088:8080 server-python </b>
